@@ -1,14 +1,15 @@
 import { countries } from "../../data/countries"
+import styles from "./Form.module.css"
 
 export const Form = () => {
   return (
-    <form>
-        <div className="">
+    <form className={styles.form}>
+        <div className={styles.field}>
             <label htmlFor="city">Ciudad:</label>
             <input type="text" name="city " id="city"  placeholder="Ciudad"/>
         </div>
 
-        <div className="">
+        <div className={styles.field}>
             <label htmlFor="country">Pais</label>
 
             <select name="city" id="">
@@ -18,7 +19,7 @@ export const Form = () => {
                 ))}
             </select>
 
-            <input type="submit" value='Consultar clima' />
+            <input className={styles.submit} type="submit" value='Consultar clima' />
         </div>
     </form>
 )
