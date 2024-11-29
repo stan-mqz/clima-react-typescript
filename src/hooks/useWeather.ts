@@ -18,8 +18,16 @@ export default function useWeather() {
         const data = await axios(url, {method: 'get'})
      */    
 
-      const {data} = await axios(geoUrl)
-      console.log(data)  
+      const {data : geoResult} = await axios(geoUrl)
+
+      const lat = geoResult[0].lat
+      const lon = geoResult[0].lon
+      
+      const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${appID}`
+
+      //De esta manera data se asigna a weatherResult
+      const {data: weatherResult} = await axios(weatherUrl)
+      console.log(weatherResult)  
 
     } catch (error) {
       console.log(error);
