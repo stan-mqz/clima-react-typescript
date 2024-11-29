@@ -15,6 +15,11 @@
     border-radius: 1rem;
 }
 
+.form select option {
+    background-color: black;
+}
+
+
 .field ::placeholder {
     color: var(--white);
 }
