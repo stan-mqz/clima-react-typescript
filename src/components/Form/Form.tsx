@@ -5,12 +5,10 @@ import { SearchType } from "../../types/types";
 import { Alert } from "../Alert/Alert";
 
 type FormProps = {
-    fetchWeather: (search: SearchType) => Promise<void>
-}
+  fetchWeather: (search: SearchType) => Promise<void>;
+};
 
-export const Form = ({fetchWeather}: FormProps) => {
-
-
+export const Form = ({ fetchWeather }: FormProps) => {
   const [search, setSearch] = useState<SearchType>({
     city: "",
     country: "",
@@ -31,15 +29,14 @@ export const Form = ({fetchWeather}: FormProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setALert("");
 
     if (Object.values(search).includes("")) {
       setALert("Hay campos vacíos");
       return;
     }
 
-
-    fetchWeather(search)
-
+    fetchWeather(search);
   };
 
   return (
