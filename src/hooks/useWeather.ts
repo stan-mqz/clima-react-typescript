@@ -1,25 +1,33 @@
 import axios from "axios";
 import { SearchType } from "../types/types";
-import { z } from 'zod';
- //Zod
+import { z } from "zod";
+import { useState } from "react";
 
+//Zod
 const Weather = z.object({
   name: z.string(),
   main: z.object({
     temp: z.number(),
     temp_max: z.number(),
     temp_min: z.number(),
-  })
-})
+  }),
+});
 
-type Weather = z.infer<typeof Weather>
-
-
+export type Weather = z.infer<typeof Weather>;
 
 export default function useWeather() {
-  const appID = import.meta.env.VITE_API_KEY;
+
+  const [weather, setWeather] = useState<Weather>({
+    name: '',
+    main: {
+      temp: 0,
+      temp_max: 0,
+      temp_min: 0
+    }
+  })
 
   const fetchWeather = async (search: SearchType) => {
+    const appID = import.meta.env.VITE_API_KEY;
     try {
       //Endpoint
       const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appID}`;
@@ -40,23 +48,20 @@ export default function useWeather() {
       //ZOD
       const { data: weatherResult } = await axios(weatherUrl); //De esta manera data se asigna a weatherResult
 
-      const result = Weather.safeParse(weatherResult)
+      const result = Weather.safeParse(weatherResult);
       //Retorna true si cumple con la estrctura
       if (result.success) {
-        console.log(result.data.name)
-        return
+        setWeather(result.data)
+        return;
       }
 
-      console.log('Operación mal formada')
-
-      
-
-
+      console.log("Operación mal formada");
     } catch (error) {
       console.log(error);
     }
   };
   return {
+    weather,
     fetchWeather,
   };
 }
