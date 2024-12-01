@@ -17,20 +17,23 @@ export type Weather = z.infer<typeof Weather>;
 
 export default function useWeather() {
 
-  const [weather, setWeather] = useState<Weather>({
+  const weatherInitialState = {
     name: '',
     main: {
       temp: 0,
       temp_max: 0,
       temp_min: 0
     }
-  })
+  }
+
+  const [weather, setWeather] = useState<Weather>(weatherInitialState)
 
   const [loading, setLoading] = useState(false)
 
   const fetchWeather = async (search: SearchType) => {
     const appID = import.meta.env.VITE_API_KEY;
     setLoading(true)
+    setWeather(weatherInitialState)
     try {
       //Endpoint
       const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appID}`;
