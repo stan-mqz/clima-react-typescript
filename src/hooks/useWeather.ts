@@ -37,7 +37,7 @@ export default function useWeather() {
     setNotFound(false)
     try {
       //Endpoint
-      const geoUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appID}`;
+      const geoUrl = `https://api.openweathermap.org/geo/1.0/direct?q=${search.city},${search.country}&appid=${appID}`;
 
       //Puedes especificar el tipo de peticion de estas dos manearas
       /*
